@@ -1,0 +1,75 @@
+<html>
+<head>
+  <title>Danmakufu</title>
+
+  <script src="scripts/jquery.js"></script>
+  
+  <script src="scripts/resources.js"></script>
+
+
+  <script src="scripts/game.js"></script>
+
+
+  
+  <script src="scripts/movingObject.js"></script>
+  <script src="scripts/Death.js"></script>
+<!-- Enemy code  -->
+  <script src="scripts/Enemy/enemyObject.js"></script>
+  <script src="scripts/Enemy/enemyBullet.js"></script>
+  <script src="scripts/Enemy/enemy1.js"></script>
+  <script src="scripts/Enemy/enemy1p2.js"></script>
+  <script src="scripts/Enemy/enemy2.js"></script>
+<!-- Player code  -->
+  <script src="scripts/Player/Controls.js"></script>
+  <script src="scripts/Player/Bullet.js"></script>
+  <script src="scripts/Player/Yukari.js"></script>
+  
+</head>
+<body style="background: url(img/bg.png)">
+ 
+
+  <canvas id="main-bg" style="position: absolute; z-index: 0;"></canvas>
+  <canvas id="main-fg" style="position: absolute; z-index: 1;"></canvas>
+  <canvas id="temp" style="display: none;"></canvas>
+
+
+  <script>
+    var bgcanvasEl = document.getElementById("main-bg");
+    var fgcanvasEl = document.getElementById("main-fg");
+    var tempCanvasEl = document.getElementById("temp");
+
+    bgcanvasEl.width = fgcanvasEl.width = window.innerWidth;
+    bgcanvasEl.height = fgcanvasEl.height = window.innerHeight;
+
+  
+
+    var game = new window.Danmakufu.Game();
+    var bgctxt = bgcanvasEl.getContext('2d');
+    var fgctxt = fgcanvasEl.getContext('2d');
+
+
+    $(document).keydown(function (e){
+      if(e.keyCode === 88){
+        $("#instructs").toggle();
+        $(document).unbind("keydown");
+
+        var Controls = new window.Danmakufu.Controls(game, bgctxt, fgctxt, tempCanvasEl);
+
+        window.Danmakufu.Resources.load([
+            'img/bg.png',
+            'img/small_fairy_blue.png',
+            'img/medium_fairy_blue.png',
+            'img/redshot.png',
+            'img/cirno.png',
+            'img/Yukari.png'
+        ]);
+
+        window.Danmakufu.Resources.onReady(Controls.start.bind(Controls));
+
+      };
+    });
+
+  </script>
+
+</body>
+</html>
